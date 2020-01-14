@@ -7,14 +7,9 @@ package gestion_base_de_datos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.UUID;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,9 +18,8 @@ import javax.swing.table.DefaultTableModel;
 public class fr_proyecto_empleado extends javax.swing.JFrame {
 
     /**
-     * Creates new form fr_proyecto_empleado
+     * Creates new form fr_empleado_proyecto
      */
-    JTable table;
     public fr_proyecto_empleado() {
         initComponents();
     }
@@ -45,8 +39,6 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
         empleadoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : empleadoQuery.getResultList();
         proyectoQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Proyecto p");
         proyectoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : proyectoQuery.getResultList();
-        list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : ((javax.persistence.Query)null).getResultList();
-        list2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : ((javax.persistence.Query)null).getResultList();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         comboBox_empleado = new javax.swing.JComboBox();
@@ -54,15 +46,13 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
         texto_horas = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         comboBox_proyecto = new javax.swing.JComboBox();
-        boton_registrar = new javax.swing.JButton();
+        boton_ingresar = new javax.swing.JButton();
         boton_regresar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        panel_emp_proyectos = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Registrar Empleado en Proyecto");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("Registrar Empleado Proyecto");
 
         jLabel2.setText("Empleado: ");
 
@@ -72,7 +62,7 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, empleadoQuery, eLProperty, comboBox_empleado);
         bindingGroup.addBinding(jComboBoxBinding);
 
-        jLabel3.setText("Horas semanales: ");
+        jLabel3.setText("Horas semanales:");
 
         texto_horas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -80,7 +70,7 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Proyecto: ");
+        jLabel4.setText("Proyecto:");
 
         comboBox_proyecto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -88,10 +78,10 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, proyectoQuery, eLProperty, comboBox_proyecto);
         bindingGroup.addBinding(jComboBoxBinding);
 
-        boton_registrar.setText("Registrar");
-        boton_registrar.addActionListener(new java.awt.event.ActionListener() {
+        boton_ingresar.setText("Ingresar");
+        boton_ingresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boton_registrarActionPerformed(evt);
+                boton_ingresarActionPerformed(evt);
             }
         });
 
@@ -102,58 +92,40 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panel_emp_proyectosLayout = new javax.swing.GroupLayout(panel_emp_proyectos);
-        panel_emp_proyectos.setLayout(panel_emp_proyectosLayout);
-        panel_emp_proyectosLayout.setHorizontalGroup(
-            panel_emp_proyectosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
-        );
-        panel_emp_proyectosLayout.setVerticalGroup(
-            panel_emp_proyectosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 222, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(panel_emp_proyectos);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(177, 177, 177)
+                        .addGap(146, 146, 146)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(256, 256, 256)
-                        .addComponent(boton_regresar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(255, 255, 255)
-                        .addComponent(boton_registrar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(comboBox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boton_regresar)
+                            .addComponent(boton_ingresar)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboBox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(texto_horas, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(58, 58, 58)
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboBox_proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                                .addComponent(texto_horas, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4)))))
+                .addGap(18, 18, 18)
+                .addComponent(comboBox_proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(comboBox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,13 +133,11 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
                     .addComponent(texto_horas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(comboBox_proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(boton_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(boton_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(boton_ingresar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addComponent(boton_regresar)
+                .addGap(34, 34, 34))
         );
 
         bindingGroup.bind();
@@ -175,9 +145,8 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void boton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_registrarActionPerformed
+    private void boton_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_ingresarActionPerformed
         // TODO add your handling code here:
-        
         try{
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbempresa", "root","alex");
             Statement st = con.createStatement();
@@ -202,14 +171,7 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
-    }//GEN-LAST:event_boton_registrarActionPerformed
-
-    private void boton_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_regresarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        new Fr_opciones().setVisible(true);
-    }//GEN-LAST:event_boton_regresarActionPerformed
+    }//GEN-LAST:event_boton_ingresarActionPerformed
 
     private void texto_horasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_horasKeyPressed
         // TODO add your handling code here:
@@ -223,7 +185,14 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Ingrese solo valores numericos");
             this.texto_horas.setText("");
         }
+
     }//GEN-LAST:event_texto_horasKeyPressed
+
+    private void boton_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_regresarActionPerformed
+        // TODO add your handling code here:
+        new Fr_opciones().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_boton_regresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,6 +220,7 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(fr_proyecto_empleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -260,9 +230,8 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
         });
     }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton boton_registrar;
+    private javax.swing.JButton boton_ingresar;
     private javax.swing.JButton boton_regresar;
     private javax.swing.JComboBox comboBox_empleado;
     private javax.swing.JComboBox comboBox_proyecto;
@@ -273,10 +242,6 @@ public class fr_proyecto_empleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private java.util.List list1;
-    private java.util.List list2;
-    private javax.swing.JPanel panel_emp_proyectos;
     private java.util.List<gestion_base_de_datos.Proyecto> proyectoList;
     private javax.persistence.Query proyectoQuery;
     private javax.swing.JTextField texto_horas;

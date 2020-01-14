@@ -5,6 +5,8 @@
  */
 package gestion_base_de_datos;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -37,6 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Empleado.findByEmSalario", query = "SELECT e FROM Empleado e WHERE e.emSalario = :emSalario"),
     @NamedQuery(name = "Empleado.findByEmSupervisor", query = "SELECT e FROM Empleado e WHERE e.emSupervisor = :emSupervisor")})
 public class Empleado implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -77,7 +82,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmId(Integer emId) {
+        Integer oldEmId = this.emId;
         this.emId = emId;
+        changeSupport.firePropertyChange("emId", oldEmId, emId);
     }
 
     public String getEmNombre() {
@@ -85,7 +92,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmNombre(String emNombre) {
+        String oldEmNombre = this.emNombre;
         this.emNombre = emNombre;
+        changeSupport.firePropertyChange("emNombre", oldEmNombre, emNombre);
     }
 
     public String getEmApellido() {
@@ -93,7 +102,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmApellido(String emApellido) {
+        String oldEmApellido = this.emApellido;
         this.emApellido = emApellido;
+        changeSupport.firePropertyChange("emApellido", oldEmApellido, emApellido);
     }
 
     public String getEmCedula() {
@@ -101,7 +112,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmCedula(String emCedula) {
+        String oldEmCedula = this.emCedula;
         this.emCedula = emCedula;
+        changeSupport.firePropertyChange("emCedula", oldEmCedula, emCedula);
     }
 
     public String getEmFecNac() {
@@ -109,7 +122,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmFecNac(String emFecNac) {
+        String oldEmFecNac = this.emFecNac;
         this.emFecNac = emFecNac;
+        changeSupport.firePropertyChange("emFecNac", oldEmFecNac, emFecNac);
     }
 
     public String getEmDireccion() {
@@ -117,7 +132,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmDireccion(String emDireccion) {
+        String oldEmDireccion = this.emDireccion;
         this.emDireccion = emDireccion;
+        changeSupport.firePropertyChange("emDireccion", oldEmDireccion, emDireccion);
     }
 
     public String getEmSexo() {
@@ -125,7 +142,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmSexo(String emSexo) {
+        String oldEmSexo = this.emSexo;
         this.emSexo = emSexo;
+        changeSupport.firePropertyChange("emSexo", oldEmSexo, emSexo);
     }
 
     public Double getEmSalario() {
@@ -133,7 +152,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmSalario(Double emSalario) {
+        Double oldEmSalario = this.emSalario;
         this.emSalario = emSalario;
+        changeSupport.firePropertyChange("emSalario", oldEmSalario, emSalario);
     }
 
     public Integer getEmSupervisor() {
@@ -141,7 +162,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmSupervisor(Integer emSupervisor) {
+        Integer oldEmSupervisor = this.emSupervisor;
         this.emSupervisor = emSupervisor;
+        changeSupport.firePropertyChange("emSupervisor", oldEmSupervisor, emSupervisor);
     }
 
     public Departamento getEmDepartamento() {
@@ -149,7 +172,9 @@ public class Empleado implements Serializable {
     }
 
     public void setEmDepartamento(Departamento emDepartamento) {
+        Departamento oldEmDepartamento = this.emDepartamento;
         this.emDepartamento = emDepartamento;
+        changeSupport.firePropertyChange("emDepartamento", oldEmDepartamento, emDepartamento);
     }
 
     public Departamento getDepartamento() {
@@ -183,6 +208,14 @@ public class Empleado implements Serializable {
     @Override
     public String toString() {
         return ""+emId+"";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
